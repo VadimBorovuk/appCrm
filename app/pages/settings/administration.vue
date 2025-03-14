@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PersonalUITitle title="t.settings.administration"/>
+    <PersonalUITitle title="t.settings.administration1"/>
     <!--    <UDivider class="mt-4"/>-->
     <div class="lists-holder">
       <div>

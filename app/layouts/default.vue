@@ -1,9 +1,9 @@
 <template>
-<!--  <Preloader/>-->
+  <Preloader/>
 <!--  <UNotifications />-->
   <main class="h-full">
     <div class="page-holder h-full flex">
-<!--      <SidebarContent/>-->
+      <SidebarContent/>
       <div class="flex-1 p-5">
         <NuxtPage/>
       </div>

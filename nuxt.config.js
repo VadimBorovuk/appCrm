@@ -1,14 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
+import {cssConfig, fontsConfig, i118Config, modulesConfig, pluginsConfig, runtimeEnvConfig} from "./config/main.js";
+
 export default defineNuxtConfig({
-  devtools: { enabled: true },
-  modules: [
-    '@nuxt/ui',
-  ],
-  css: ['~/assets/css/main.css'],
+  compatibilityDate: '2024-11-27',
+  devtools: {enabled: true},
   future: {
     compatibilityVersion: 4
   },
-  compatibilityDate: '2024-11-27',
   colorMode: {
     preference: 'light', // За замовчуванням буде 'light'
     dataValue: 'theme',  // Додає `data-theme="light"` у <html>
@@ -24,5 +23,11 @@ export default defineNuxtConfig({
   typescript: {
     strict: false,
     shim: false
-  }
+  },
+  modules: modulesConfig,
+  css: cssConfig,
+  fonts: fontsConfig,
+  i18n: i118Config,
+  runtimeConfig: runtimeEnvConfig,
+  plugins: pluginsConfig,
 })

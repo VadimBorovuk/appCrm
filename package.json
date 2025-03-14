@@ -26,6 +26,7 @@
     "nuxt": "^3.16.0",
     "pinia": "^3.0.1",
     "vue": "latest",
-    "vue-router": "latest"
+    "vue-router": "latest",
+    "vue-i18n": "^11.1.1"
   }
 }

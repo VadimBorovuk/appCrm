@@ -3,7 +3,49 @@
 
 @theme {
   --font-sans: 'Public Sans', sans-serif;
+
+  --color-whiteLilac: #F1F1F9;
+  --color-whiteLilac-50: #FFFFFF;
+  --color-whiteLilac-100: #FFFFFF;
+  --color-whiteLilac-200: #FFFFFF;
+  --color-whiteLilac-300: #FFFFFF;
+  --color-whiteLilac-400: #FFFFFF;
+  --color-whiteLilac-500: #F1F1F9;
+  --color-whiteLilac-600: #CACAE8;
+  --color-whiteLilac-700: #A2A2D7;
+  --color-whiteLilac-800: #7B7BC7;
+  --color-whiteLilac-900: #5454B6;
+  --color-whiteLilac-950: #4747A6;
+
+  --color-waterloo: #7B859D;
+  --color-waterloo-50: #E4E6EB;
+  --color-waterloo-100: #D9DCE3;
+  --color-waterloo-200: #C1C6D1;
+  --color-waterloo-300: #AAB0C0;
+  --color-waterloo-400: #929BAE;
+  --color-waterloo-500: #7B859D;
+  --color-waterloo-600: #5F6980;
+  --color-waterloo-700: #474F60;
+  --color-waterloo-800: #303440;
+  --color-waterloo-900: #181A20;
+  --color-waterloo-950: #0C0D10;
 }
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: .9rem;
+  background: #F1F1F9;
+}
+
+thead > tr > th {
+  color: #ffffff !important;
+  font-size: 16px !important;
+}
+
+.text-red-500 {
+  padding-left: 80px;
+}
+
 
 .preloader {
   position: fixed;

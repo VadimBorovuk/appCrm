@@ -6,7 +6,7 @@ import {useFormatDateWithTimezone} from "../composables/useDateFormat.js";
 export const useTranslateStore = defineStore('Translation', () => {
 
   // variables for translation page
-  const {$preloader} = useNuxtApp();
+  const {$loader} = useNuxtApp();
   const route = useRoute()
   const config = useRuntimeConfig();
   const {
@@ -128,7 +128,7 @@ export const useTranslateStore = defineStore('Translation', () => {
 
 
   const fetchTranslates = async (page, params) => {
-    $preloader.startLoadingPage()
+    $loader.startLoadingPage()
     try {
       const response = await transGetList(page, params)
 
@@ -145,7 +145,7 @@ export const useTranslateStore = defineStore('Translation', () => {
     } catch (error) {
       return error
     } finally {
-      $preloader.closeLoadingPage()
+      $loader.closeLoadingPage()
     }
   }
 

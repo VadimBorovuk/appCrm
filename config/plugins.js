@@ -1,6 +1,6 @@
 export const pluginsConfig = [
   './plugins/services/service',
   './plugins/lang/i118n',
-  './plugins/Preloader/Preloader',
+  './plugins/loader',
   './plugins/actions/permission'
 ]

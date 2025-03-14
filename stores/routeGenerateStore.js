@@ -4,7 +4,7 @@ import {useRouter} from "#vue-router";
 import {useGenerateRoute} from "../api/route.js";
 
 export const useRouteGenerateStore = defineStore('generateRoute', () => {
-  const {$preloader} = useNuxtApp();
+  const {$loader} = useNuxtApp();
   const router = useRouter();
   const {saveRoutes, getRoutes} = useGenerateRoute();
   const currentRoutes = ref([])
@@ -18,26 +18,26 @@ export const useRouteGenerateStore = defineStore('generateRoute', () => {
   }
 
   const saveRoutesFunc = async () => {
-    $preloader.startLoadingPage()
+    $loader.startLoadingPage()
     try {
       await saveRoutes(JSON.stringify(currentRoutes.value))
       await getRoutesFunc()
     } catch (error) {
       return error.response.data
     } finally {
-      $preloader.closeLoadingPage()
+      $loader.closeLoadingPage()
     }
   }
 
   const getRoutesFunc = async () => {
-    $preloader.startLoadingPage()
+    $loader.startLoadingPage()
     try {
       const response = await getRoutes()
       generatedRouters.value = response.data.data
     } catch (error) {
       return error.response.data
     } finally {
-      $preloader.closeLoadingPage()
+      $loader.closeLoadingPage()
     }
   }
 

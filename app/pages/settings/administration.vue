@@ -1,16 +1,18 @@
 <template>
   <div>
     <PersonalUITitle title="t.settings.administration"/>
-    <UDivider class="mt-4"/>
+    <!--    <UDivider class="mt-4"/>-->
     <div class="lists-holder">
       <div>
         <div class="ibox float-e-margins">
           <div class="ibox-content">
             <h3 class="font-bold">{{ $t('t.list.routes.api') }}</h3>
-            <div v-for="item in routeStore.generatedRouters" :key="item.path" class="list-group-item">
-              <b>{{ item.name }}</b> - {{ item.path }}
-            </div>
-            <br/>
+            <client-only>
+              <div v-for="item in routeStore.generatedRouters" :key="item.path" class="list-group-item">
+                <b>{{ item.name }}</b> - {{ item.path }}
+              </div>
+              <br/>
+            </client-only>
           </div>
         </div>
       </div>
@@ -18,9 +20,11 @@
         <div class="ibox float-e-margins">
           <div class="ibox-content">
             <h3 class="font-bold">{{ $t('t.list.routes.system') }}</h3>
-            <div v-for="item in routeStore.currentRoutes" :key="item.path" class="list-group-item">
-              <b>{{ item.name }}</b> - {{ item.path }}
-            </div>
+            <client-only>
+              <div v-for="item in routeStore.currentRoutes" :key="item.path" class="list-group-item">
+                <b>{{ item.name }}</b> - {{ item.path }}
+              </div>
+            </client-only>
           </div>
         </div>
       </div>

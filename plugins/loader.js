@@ -1,14 +1,14 @@
 
 export default defineNuxtPlugin((nuxtApp) => {
   const router = useRouter();
-  const loader = ref(false)
+  const data = ref(false)
 
   const startLoadingPage = () => {
-    loader.value = true
+    data.value = true
   }
 
   const closeLoadingPage = () => {
-    loader.value = false
+    data.value = false
   }
 
   router.beforeEach((to, from, next) => {
@@ -22,8 +22,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     }, 500); // Затримка для плавного закриття
   });
 
-  nuxtApp.provide('preloader', {
-    loader,
+  nuxtApp.provide('loader', {
+    data,
     startLoadingPage,
     closeLoadingPage
   })

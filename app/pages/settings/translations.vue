@@ -200,7 +200,7 @@ import {useLangStore} from "../../../stores/langStore.js";
 
 const router = useRouter();
 const {showToast} = useToastFunc();
-const {$preloader, $permission} = useNuxtApp();
+const {$loader, $permission} = useNuxtApp();
 const i18n = useI18n();
 const {t} = i18n;
 const translateStore = useTranslateStore();
@@ -237,7 +237,7 @@ const validateEdit = (state) => {
 }
 
 const clearCache = () => {
-  $preloader.startLoadingPage()
+  $loader.startLoadingPage()
   localStorage.removeItem('nf_locale_')
   localStorage.removeItem('nf_locale_')
   localStorage.removeItem('nf_locale_')
@@ -245,7 +245,7 @@ const clearCache = () => {
   localStorage.removeItem('nf_locale_')
   langStore.loadMessages(langStore.locale, i18n);
   setTimeout(() => {
-    $preloader.closeLoadingPage()
+    $loader.closeLoadingPage()
     showToast(false, 't.error.clear.cache', 't.success.clear.cache')
   }, 500)
 }

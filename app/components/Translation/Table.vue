@@ -88,7 +88,7 @@
 <script setup>
 import {useNuxtApp} from '#app';
 
-const {$preloader} = useNuxtApp();
+const {$loader} = useNuxtApp();
 const {t, locale} = useI18n();
 const emit = defineEmits(['delete-translate'])
 
@@ -119,7 +119,7 @@ const columns = ref([
 ]);
 
 watch(() => locale.value, (newLocale) => {
-  $preloader.startLoadingPage()
+  $loader.startLoadingPage()
   columns.value = [
     {key: 'id', label: t('t.table.id'), class: 'min-w-[50px]'},
     {key: 'lang', label: t('t.table.language'), class: 'min-w-[50px]'},
@@ -135,7 +135,7 @@ watch(() => locale.value, (newLocale) => {
     },
   ]
   setTimeout(() => {
-    $preloader.closeLoadingPage()
+    $loader.closeLoadingPage()
   }, 500)
 
 })

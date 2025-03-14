@@ -1,5 +1,5 @@
 <template>
-  <Preloader/>
+  <LoadingView/>
 <!--  <UNotifications />-->
   <main class="h-full">
     <div class="page-holder h-full flex">

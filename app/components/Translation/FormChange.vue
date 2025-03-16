@@ -16,7 +16,7 @@
       </div>
     </UFormGroup>
 
-    <UDivider class="my-4"/>
+    <USeparator class="my-4"/>
 
     <template v-for="(item, idx) in langStore.locales">
       <UFormGroup>
@@ -34,7 +34,7 @@
       </UFormGroup>
     </template>
 
-    <UDivider class="my-4"/>
+    <USeparator class="my-4"/>
 
     <div class="flex items-center justify-center">
       <UButton size="lg"

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <PersonalUITitle title="t.settings.administration1"/>
-    <!--    <UDivider class="mt-4"/>-->
+    <PersonalUITitle title="t.settings.administration"/>
+    <!--    <USeparator class="mt-4"/>-->
     <div class="lists-holder">
       <div>
         <div class="ibox float-e-margins">
@@ -31,7 +31,7 @@
     </div>
     <div class="flex items-center justify-start">
       <PersonalUIButton
-          disabled
+          :disabled="false"
           active
           icon="simple-icons:convertio"
           @click="saveRoutesToJson"
@@ -49,20 +49,20 @@ useHead({
 })
 
 import {onMounted} from 'vue';
-import {useToastFunc} from "../../../composables/useToast.js";
+import {useToastFunc} from "../../../composables/useNotivue.js";
 
 
 const routeStore = useRouteGenerateStore();
-const {showToast} = useToastFunc();
+const {showNotivue} = useToastFunc();
 
 const setGenerateRoutes = async () => {
   const error = await routeStore.getRoutesFunc();
-  showToast(error, 't.error.load.route', false)
+  showNotivue(error, 't.error.load.route', false)
 };
 
 const saveRoutesToJson = async () => {
   const error = await routeStore.saveRoutesFunc();
-  showToast(error, 't.error.save.route', 't.success.save.route')
+  showNotivue(error, 't.error.save.route', 't.success.save.route')
 };
 
 onMounted(() => {

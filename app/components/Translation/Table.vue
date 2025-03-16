@@ -1,101 +1,102 @@
 <template>
-  <div class="table-container mb-6">
-    <UTable
-        :ui="{
+  <UTable
+      :ui="{
         thead: 'bg-waterloo-500 h-[50px] text-white', // Червоний фон, білий текст
     }"
-        :rows="data.items"
-        :columns="columns"
-        :empty-state="{ label: 'No data' }"
-        class="mt-4 notifications-lists w-100"
-    >
-      <template #id-data="{ row }">
-        <div class="w-[50px]">
-          {{ row.id }}
-        </div>
-      </template>
+      :columns="columns"
+      :data="data"
+      :empty-state="{ label: 'No data' }"
+      class="mt-4 flex-1"
+  >
+    <template #id-cell="{ row }">
+      <div class="max-w-[50px]">
+        {{ row.original.id }}
+      </div>
+    </template>
+    <template #lang-cell="{ row }">
+      <div class="max-w-[100px]">
+        {{ getNameOfLang(row.original.lang) }}
+      </div>
+    </template>
+    <template #code-cell="{ row }">
+      <div class="w-[350px] break-words whitespace-pre-line flex items-center">
 
-      <template #lang-data="{ row }">
-        <div class="w-[50px]">
-          {{ row.lang }}
-        </div>
-      </template>
+        <NuxtLink v-if="canEdit" :to="`/settings/translate_${row.original.code}`"
+                  class="cursor-pointer underline hover:no-underline max-w-[300px]">
+          {{ row.original.code }}
+        </NuxtLink>
+        <span v-else class="max-w-[300px]">
+                {{ row.original.code }}
+              </span>
+        <PersonalUICopyBtn
+            v-if="row.original.code"
+            text-copy="t.copy.code"
+            :value-copy="row.original.code"
+        />
+      </div>
+    </template>
+    <template #value-cell="{ row }">
+      <div class="w-[350px] break-words whitespace-pre-line flex items-center">
+        <div class="max-w-[300px]">{{ row.original.value }}</div>
+        <PersonalUICopyBtn
+            v-if="row.original.value"
+            text-copy="t.copy.value"
+            :value-copy="row.original.value"
+        />
+      </div>
+    </template>
+    <template #created_at-cell="{ row }">
+      <div class="w-[150px]">
+        <b>
+          {{ row.original.createdDate.days }}
+        </b>
+        <p>
+          {{ row.original.createdDate.hours }}
+        </p>
+      </div>
+    </template>
+    <template #updated_at-cell="{ row }">
+      <div class="w-[150px]">
+        <b>
+          {{ row.original.updatedDate.days }}
+        </b>
+        <p>{{ row.original.updatedDate.hours }}</p>
+      </div>
+    </template>
 
-      <template #code-data="{ row }">
-        <div class="w-[350px] break-words whitespace-pre-line flex">
-
-          <NuxtLink v-if="canEdit" :to="`/settings/translate_${row.code}`"
-                    class="cursor-pointer underline hover:no-underline">
-            {{ row.code }}
-          </NuxtLink>
-          <span v-else>
-            {{ row.code }}
-          </span>
-          <PersonalUICopyBtn
-              v-if="row.code"
-              text-copy="t.copy.code"
-              :value-copy="row.code"
-          />
-        </div>
-      </template>
-      <template #value-data="{ row }">
-        <div class="w-[400px] break-words whitespace-pre-line flex">
-          <div class="max-w-[300px]">{{ row.value }}</div>
-          <PersonalUICopyBtn
-              v-if="row.value"
-              text-copy="t.copy.value"
-              :value-copy="row.value"
-          />
-        </div>
-      </template>
-      <template #created_at-data="{ row }">
-        <div class="w-[200px]">
-          {{ row.created_at }}
-        </div>
-      </template>
-
-      <template #updated_at-data="{ row }">
-        <div class="w-[200px]">
-          {{ row.updated_at }}
-        </div>
-      </template>
-
-      <template #operations-data="{ row }">
-        <div class="table__buttons border-l">
-          <UButton
-              v-if="canEdit"
-              @click="emit('editTranslate', {id: row.id, value: row.value})"
-              :title="$t('t.btn.title.edit')"
-              color="gray"
-              variant="ghost"
-          >
-            <UIcon :size="22" name="ep:edit"/>
-          </UButton>
-          <UButton
-              @click="emit('delete-translate', row.id)"
-              :title="$t('t.btn.title.delete')"
-              color="gray"
-              variant="ghost"
-          >
-            <UIcon :size="22" name="ep:delete"/>
-          </UButton>
-        </div>
-      </template>
-    </UTable>
-  </div>
+    <!--    <template #operations-cell="{ row }">-->
+    <!--      <div class="table__buttons border-l">-->
+    <!--        <UButton-->
+    <!--            v-if="canEdit"-->
+    <!--            @click="emit('editTranslate', {id: row.original.id, value: row.original.value})"-->
+    <!--            :title="$t('t.btn.title.edit')"-->
+    <!--            color="gray"-->
+    <!--            variant="ghost"-->
+    <!--        >-->
+    <!--          <UIcon :size="22" name="ep:edit"/>-->
+    <!--        </UButton>-->
+    <!--        <UButton-->
+    <!--            @click="emit('delete-translate', row.original.id)"-->
+    <!--            :title="$t('t.btn.title.delete')"-->
+    <!--            color="gray"-->
+    <!--            variant="ghost"-->
+    <!--        >-->
+    <!--          <UIcon :size="22" name="ep:delete"/>-->
+    <!--        </UButton>-->
+    <!--      </div>-->
+    <!--    </template>-->
+  </UTable>
 </template>
 
 <script setup>
-import {useNuxtApp} from '#app';
-
-const {$loader} = useNuxtApp();
-const {t, locale} = useI18n();
-const emit = defineEmits(['delete-translate'])
-
-defineProps({
+const props = defineProps({
   data: {
     type: Object,
-    default: {}
+    default: []
+  },
+  languages: {
+    type: Array,
+    default: []
   },
   canEdit: {
     type: Boolean,
@@ -103,40 +104,106 @@ defineProps({
   }
 })
 
+import {useNuxtApp} from '#app';
+import {h, resolveComponent} from 'vue'
+const toast = useToast()
+const {$loader} = useNuxtApp();
+const {t, locale} = useI18n();
+const emit = defineEmits(['delete-translate']);
+const UDropdownMenu = resolveComponent('UDropdownMenu')
+const UButton = resolveComponent('UButton')
+
+const getNameOfLang = (value) => {
+  return props.languages.find(locale => locale.code === value)?.name
+}
+
 const columns = ref([
-  {key: 'id', label: t('t.table.id'), class: 'w-[50px]'},
-  {key: 'lang', label: t('t.table.language'), class: 'w-[50px]'},
-  {key: 'code', label: t('t.table.code'), class: 'w-[200px] break-words'},
-  {key: 'value', label: t('t.table.value'), class: 'w-[400px] break-words'},
-  {key: 'created_at', label: t('t.table.created_at'), class: 'min-w-[200px]'},
-  {key: 'updated_at', label: t('t.table.updated_at'), class: 'min-w-[200px]'},
   {
-    key: 'operations',
-    label: t('t.table.operations'),
-    class: 'min-w-[140px]'
-    // class: 'sticky right-0 bg-whiteLilac-700 z-10'
+    accessorKey: 'id',
+    header: () => h('div', {class: 'text-left text-white'}, t('t.table.id')),
   },
-]);
+  {
+    accessorKey: 'lang',
+    header: () => h('div', {class: 'text-left text-white'}, t('t.table.language')),
+  },
+  {
+    accessorKey: 'code',
+    header: () => h('div', {class: 'text-left text-white'}, t('t.table.code')),
+  },
+  {
+    accessorKey: 'value',
+    header: () => h('div', {class: 'text-left text-white'}, t('t.table.value')),
+  },
+  {
+    accessorKey: 'created_at',
+    header: () => h('div', {class: 'text-left text-white'}, t('t.table.created_at')),
+  },
+  {
+    accessorKey: 'updated_at',
+    header: () => h('div', {class: 'text-left text-white'}, t('t.table.updated_at')),
+  },
+  {
+    id: 'actions',
+    cell: ({row}) => {
+      return h(
+          'div',
+          {class: 'text-right cursor-pointer'},
+          h(
+              UDropdownMenu,
+              {
+                content: {
+                  align: 'end'
+                },
+                items: getActionsItems(row)
+              },
+              () =>
+                  h(UButton, {
+                    icon: 'i-lucide-ellipsis-vertical',
+                    color: 'neutral',
+                    variant: 'ghost',
+                    class: 'ml-auto'
+                  })
+          )
+      )
+    }
+  }
+])
 
-watch(() => locale.value, (newLocale) => {
-  $loader.startLoadingPage()
-  columns.value = [
-    {key: 'id', label: t('t.table.id'), class: 'min-w-[50px]'},
-    {key: 'lang', label: t('t.table.language'), class: 'min-w-[50px]'},
-    {key: 'code', label: t('t.table.code'), class: 'w-[200px] break-words'},
-    {key: 'value', label: t('t.table.value'), class: 'w-[400px] break-words'},
-    {key: 'created_at', label: t('t.table.created_at'), class: 'min-w-[200px]'},
-    {key: 'updated_at', label: t('t.table.updated_at'), class: 'min-w-[200px]'},
+
+const getActionsItems = (row) => {
+  return [
     {
-      key: 'operations',
-      label: t('t.table.operations'),
-      class: 'min-w-[140px]'
-      // class: 'sticky right-0 bg-whiteLilac-700 z-10'
+      type: 'label',
+      label: 'Actions'
     },
+    {
+      type: 'separator'
+    },
+    {
+      label: 'Copy payment ID',
+      onSelect() {
+        navigator.clipboard.writeText(row.original.id)
+        toast.add({
+          title: 'Payment ID copied to clipboard!',
+          color: 'success',
+          icon: 'i-lucide-circle-check'
+        })
+      }
+    },
+    {
+      type: 'separator'
+    },
+    {
+      label: 'View customer'
+    },
+    {
+      label: 'View payment details'
+    }
   ]
-  setTimeout(() => {
-    $loader.closeLoadingPage()
-  }, 500)
-
-})
+}
 </script>
+
+
+
+
+

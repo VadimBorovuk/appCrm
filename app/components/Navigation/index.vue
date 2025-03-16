@@ -16,6 +16,7 @@
   </div>
 </template>
 
+
 <script setup>
 
 import {useI18n} from 'vue-i18n';
@@ -34,6 +35,43 @@ const listDropCrm = ref([])
 const langsList = ref([])
 const departmentsList = ref([])
 
+const itemsHeader = ref([
+  [
+    {
+      label: 'Benjamin',
+      avatar: {
+        src: 'https://github.com/benjamincanac.png'
+      },
+      type: 'label'
+    }
+  ],
+  [
+    {
+      label: 'Profile',
+      icon: 'i-lucide-user',
+    },
+    {
+      label: 'Billing',
+      icon: 'i-lucide-credit-card',
+      disabled: true
+    },
+    {
+      label: 'Settings',
+      icon: 'i-lucide-cog',
+      kbds: [',']
+    },
+    {
+      label: 'Keyboard shortcuts',
+      icon: 'i-lucide-monitor'
+    }
+  ],
+  [
+    {
+      label: 'Logout',
+      icon: 'i-lucide-log-out'
+    }
+  ]
+])
 
 const getIconOfLang = (code) => {
   switch (code) {
@@ -65,10 +103,9 @@ const updateLangsList = () => {
     label: getNameOfLang(lang.code, true),
     icon: getIconOfLang(lang.code),
     disabled: locale.value === lang.code,
-    class: locale.value === lang.code ? 'bg-blue-700 text-white flex justify-center items-center py-1 my-2' : 'bg-white text-black py-1 flex justify-center items-center hover:bg-waterloo-50 my-2',
-    click: (e) => {
-      const localeCode = getNameOfLang(e.target.textContent)
-      changeLang(localeCode);
+    class: locale.value === lang.code ? 'bg-waterloo-500 text-white flex justify-center items-center py-1 my-2 cursor-pointer' : 'cursor-pointer bg-white text-black py-1 flex justify-center items-center hover:bg-waterloo-50 my-2',
+    onSelect() {
+      changeLang(lang.code);
     }
   }))]
 
@@ -110,3 +147,4 @@ const changeLang = async (value) => {
   cc_locale.value = value;
 };
 </script>
+

@@ -1,9 +1,10 @@
 <template>
-  <UDropdown :items="items" :ui="{ item: { disabled: 'cursor-text select-text' }}"
-             @click="emit('update-langs')"
-             :popper="{ placement: 'bottom-start' }">
-    <UAvatar src="https://avatars.githubusercontent.com/u/739984?v=4" class="border-gray-600 border-2"/>
-    <!--        <UIcon name="subway:admin" />-->
+  <UDropdownMenu
+      class="cursor-pointer"
+      @update:open="emit('update-langs')"
+      :items="items"
+      :ui="{content: 'w-48'}"
+  >
     <template #account="{ item }">
       <div class="text-left">
         <p>
@@ -14,20 +15,8 @@
         </p>
       </div>
     </template>
-
-    <template #item="{ item }">
-      <template v-if="item.to">
-        <a :href="item.to" class="w-full flex items-center justify-between">
-          <span>{{ item.label }}</span>
-          <UIcon :name="item.icon" class="flex-shrink-0 h-4 w-4 ms-auto"/>
-        </a>
-      </template>
-      <template v-else @click="item.click">
-        <span class="truncate">{{ item.label }}</span>
-        <UIcon :name="item.icon" class="flex-shrink-0 h-4 w-4 ms-auto"/>
-      </template>
-    </template>
-  </UDropdown>
+    <UButton icon="i-lucide-menu" color="neutral" variant="outline"/>
+  </UDropdownMenu>
 </template>
 
 <script setup>
@@ -44,4 +33,4 @@ defineProps({
 const emit = defineEmits(['update-langs'])
 </script>
 
-<!--"@nuxt/ui": "^2.21.0",-->
+

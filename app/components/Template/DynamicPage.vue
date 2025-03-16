@@ -6,8 +6,8 @@
         <PersonalUITitle :title="title" btn-back-visible/>
         <slot name="actions"/>
       </div>
-      <UDivider class="my-2"/>
-      <div class="bg-white w-100 rounded-lg p-4 mt-4">
+      <USeparator class="my-2"/>
+      <div class="bg-white w-full rounded-lg p-4 mt-4">
         <slot name="content-dynamic"/>
       </div>
     </div>

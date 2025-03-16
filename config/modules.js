@@ -4,5 +4,6 @@ export const modulesConfig = [
   '@nuxt/ui',
   '@nuxtjs/color-mode',
   '@nuxt/fonts',
-  'dayjs-nuxt'
+  'dayjs-nuxt',
+  'notivue/nuxt'
 ]

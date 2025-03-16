@@ -7,9 +7,9 @@
           clear-search-on-close
           size="lg"
           v-model="filters.lang"
-          :options="languages"
-          value-attribute="code"
-          option-attribute="name"
+          :items="languages"
+          value-key="code"
+          label-key="name"
           :searchable-placeholder="$t('t.filter.lang')"
           :placeholder="$t('t.filter.lang')"
       />

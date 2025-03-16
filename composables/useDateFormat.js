@@ -8,5 +8,12 @@ export const useFormatDateWithTimezone = (dateString) => {
   const userOffset = $dayjs.tz(dateString, userTimezone).utcOffset() / 60;
   const adjustedOffset = userOffset - baseOffset;
 
-  return $dayjs.utc(dateString).add(adjustedOffset, 'hour').format('DD.MM.YYYY HH:mm:ss');
+  const convertToDays = (value)=>{
+    return $dayjs.utc(dateString).add(adjustedOffset, 'hour')
+  }
+  return {
+    days: convertToDays().format('DD.MM.YYYY'),
+    hours: convertToDays().format('HH:mm:ss'),
+    label: convertToDays().format('DD.MM.YYYY HH:mm:ss')
+  }
 }

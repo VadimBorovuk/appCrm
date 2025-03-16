@@ -12,11 +12,11 @@
 
       </slot>
 
-      <UDivider class="my-4"/>
+      <USeparator class="my-4"/>
 
       <slot name="contentModal"/>
 
-      <UDivider class="my-4"/>
+      <USeparator class="my-4"/>
 
       <slot name="footerModal">
         <div class="flex justify-end items-center">

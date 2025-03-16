@@ -12,21 +12,22 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
+    "@iconify-json/lucide": "^1.2.29",
+    "@iconify-json/simple-icons": "^1.2.28",
     "@nuxt/fonts": "^0.10.3",
     "@nuxt/icon": "^1.10.3",
+    "@nuxt/ui": "^3.0.0",
     "@nuxtjs/color-mode": "^3.5.2",
     "@nuxtjs/i18n": "^9.2.0",
     "@pinia/nuxt": "^0.10.1",
     "axios": "^1.7.9",
     "dayjs-nuxt": "^2.1.11",
     "dotenv": "^16.4.7",
-    "@iconify-json/lucide": "^1.2.29",
-    "@iconify-json/simple-icons": "^1.2.28",
-    "@nuxt/ui": "^3.0.0",
+    "notivue": "^2.4.5",
     "nuxt": "^3.16.0",
     "pinia": "^3.0.1",
     "vue": "latest",
-    "vue-router": "latest",
-    "vue-i18n": "^11.1.1"
+    "vue-i18n": "^11.1.1",
+    "vue-router": "latest"
   }
 }

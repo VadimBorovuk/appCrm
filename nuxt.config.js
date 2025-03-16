@@ -8,6 +8,17 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4
   },
+  notivue: {
+    position: 'top-center',
+    limit: 5,
+    enqueue: true,
+    avoidDuplicates: true,
+    notifications: {
+      global: {
+        duration: 1500
+      }
+    }
+  },
   colorMode: {
     preference: 'light', // За замовчуванням буде 'light'
     dataValue: 'theme',  // Додає `data-theme="light"` у <html>

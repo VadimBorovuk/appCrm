@@ -1,8 +1,12 @@
 export default defineAppConfig({
-  // https://ui3.nuxt.dev/getting-started/theme#design-system
+  // toaster: {
+  //   position: 'top-right',
+  //   expand: true,
+  //   duration: 5000
+  // },
   ui: {
     colors: {
-      primary: 'sky',
+      primary: 'Stone',
       neutral: 'slate',
     },
     button: {

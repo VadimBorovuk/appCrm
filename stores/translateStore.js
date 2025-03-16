@@ -115,6 +115,7 @@ export const useTranslateStore = defineStore('Translation', () => {
   }
 
   const resetFilter = async () => {
+    page.value = 1
     filtersTranslate.value = {
       limit: 20,
       order: 'id',
@@ -122,8 +123,7 @@ export const useTranslateStore = defineStore('Translation', () => {
       app_id: config.public.CLIENT_APP_ID,
       lang: null
     }
-    page.value = 1
-    await fetchTranslates(page.value, filtersTranslate.value)
+    await fetchTranslates(1, filtersTranslate.value)
   }
 
 
@@ -136,8 +136,17 @@ export const useTranslateStore = defineStore('Translation', () => {
       translateData.value = {
         items: items.map(item => ({
           ...item,
-          created_at: useFormatDateWithTimezone(item.created_at),
-          updated_at: useFormatDateWithTimezone(item.updated_at) /*for convert to timezone*/
+          created_at: useFormatDateWithTimezone(item.created_at).label,
+          updated_at: useFormatDateWithTimezone(item.updated_at).label,
+          createdDate: {
+            days: useFormatDateWithTimezone(item.created_at).days,
+            hours: useFormatDateWithTimezone(item.created_at).hours,
+          },
+          updatedDate: {
+            days: useFormatDateWithTimezone(item.updated_at).days,
+            hours: useFormatDateWithTimezone(item.updated_at).hours,
+          }
+          /*for convert to timezone*/
         })),
         limit,
         total_items

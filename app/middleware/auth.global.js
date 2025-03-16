@@ -32,7 +32,8 @@ export default defineNuxtRouteMiddleware(async (to) => {
       if (!allowedRoutes.includes(to.path) && !allowedRoutes.includes(matchedPath)) {
         if (role !== 'admin') {
           if (process.client) alert('403 Forbidden')
-          return abortNavigation()
+          // window.location.href =  config.public.CLIENT_APP_PATH
+          return navigateTo('/main')
         }
       }
     } else {

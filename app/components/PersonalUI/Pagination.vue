@@ -1,17 +1,15 @@
 <template>
   <UPagination
       size="xl"
-      :model-value="page"
-      :page-count="pageCount"
+      :page="page"
+      :items-per-page="pageCount"
       :total="total"
-      :active-button="{
-      class: 'text-white bg-waterloo-500 hover:bg-waterloo-400'
-    }"
-      :inactive-button="{ color: 'gray' }"
-      @update:model-value="updatePage"
+      @update:page="updatePage"
+      color="neutral" variant="outline"
+      active-color="neutral"
+      show-edges
   />
 </template>
-
 <script setup>
 
 defineProps({

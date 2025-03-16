@@ -8,12 +8,12 @@
         <UButton color="gray" variant="solid" icon="i-heroicons-x-mark-20-solid" class="-my-1"
                  @click="emit('cancel-click')"/>
       </div>
-      <UDivider class="my-4"/>
+      <USeparator class="my-4"/>
       <div>
         <p class="text-xl">{{ $t('t.title.agree.confirm') }}</p>
         <p>{{ $t('t.text.agree.confirm') }}</p>
       </div>
-      <UDivider class="my-4"/>
+      <USeparator class="my-4"/>
       <div class="flex justify-end items-center">
         <div>
           <PersonalUIButton

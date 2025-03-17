@@ -1,7 +1,8 @@
 <template>
   <UTable
+      v-model:column-pinning="columnPinning"
       :ui="{
-        thead: 'bg-waterloo-500 h-[50px] text-white', // Червоний фон, білий текст
+        thead: 'bg-waterloo-500 h-[50px] text-white',
     }"
       :columns="columns"
       :data="data"
@@ -9,7 +10,7 @@
       class="mt-4 flex-1"
   >
     <template #id-cell="{ row }">
-      <div class="max-w-[50px]">
+      <div class="w-[80px]">
         {{ row.original.id }}
       </div>
     </template>
@@ -63,32 +64,11 @@
         <p>{{ row.original.updatedDate.hours }}</p>
       </div>
     </template>
-
-    <!--    <template #operations-cell="{ row }">-->
-    <!--      <div class="table__buttons border-l">-->
-    <!--        <UButton-->
-    <!--            v-if="canEdit"-->
-    <!--            @click="emit('editTranslate', {id: row.original.id, value: row.original.value})"-->
-    <!--            :title="$t('t.btn.title.edit')"-->
-    <!--            color="gray"-->
-    <!--            variant="ghost"-->
-    <!--        >-->
-    <!--          <UIcon :size="22" name="ep:edit"/>-->
-    <!--        </UButton>-->
-    <!--        <UButton-->
-    <!--            @click="emit('delete-translate', row.original.id)"-->
-    <!--            :title="$t('t.btn.title.delete')"-->
-    <!--            color="gray"-->
-    <!--            variant="ghost"-->
-    <!--        >-->
-    <!--          <UIcon :size="22" name="ep:delete"/>-->
-    <!--        </UButton>-->
-    <!--      </div>-->
-    <!--    </template>-->
   </UTable>
 </template>
 
 <script setup>
+import {h, resolveComponent} from 'vue';
 const props = defineProps({
   data: {
     type: Object,
@@ -101,21 +81,27 @@ const props = defineProps({
   canEdit: {
     type: Boolean,
     default: false
+  },
+  canDelete: {
+    type: Boolean,
+    default: false
   }
 })
 
-import {useNuxtApp} from '#app';
-import {h, resolveComponent} from 'vue'
-const toast = useToast()
-const {$loader} = useNuxtApp();
-const {t, locale} = useI18n();
-const emit = defineEmits(['delete-translate']);
+const {t} = useI18n();
+const emit = defineEmits(['delete-translate', 'edit-translate']);
 const UDropdownMenu = resolveComponent('UDropdownMenu')
 const UButton = resolveComponent('UButton')
 
 const getNameOfLang = (value) => {
   return props.languages.find(locale => locale.code === value)?.name
 }
+
+// for pinned col
+const columnPinning = ref({
+  left: [],
+  right: ['actions']
+})
 
 const columns = ref([
   {
@@ -169,37 +155,41 @@ const columns = ref([
   }
 ])
 
-
+// for actions dropDown
 const getActionsItems = (row) => {
   return [
     {
       type: 'label',
-      label: 'Actions'
+      label: t('t.table.actions'),
+      visible: true
+    }, {
+      type: 'separator',
+      visible: props.canEdit
     },
     {
-      type: 'separator'
-    },
-    {
-      label: 'Copy payment ID',
+      class: 'cursor-pointer',
+      label: t('t.actions.edit'),
       onSelect() {
-        navigator.clipboard.writeText(row.original.id)
-        toast.add({
-          title: 'Payment ID copied to clipboard!',
-          color: 'success',
-          icon: 'i-lucide-circle-check'
-        })
-      }
+        emit('edit-translate', {id: row.original.id, value: row.original.value})
+      },
+      icon: 'i-lucide-edit',
+      visible: props.canEdit
     },
     {
-      type: 'separator'
+      type: 'separator',
+      visible: props.canDelete,
     },
     {
-      label: 'View customer'
+      class: 'cursor-pointer',
+      label: t('t.actions.delete'),
+      visible: props.canDelete,
+      icon: 'i-lucide-trash',
+      color: 'error',
+      onSelect() {
+        emit('delete-translate', row.original.id)
+      },
     },
-    {
-      label: 'View payment details'
-    }
-  ]
+  ].filter(item => Boolean(item.visible))
 }
 </script>
 

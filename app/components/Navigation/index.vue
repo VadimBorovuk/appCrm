@@ -23,7 +23,7 @@ import {useI18n} from 'vue-i18n';
 import {useCookie} from 'nuxt/app';
 import {useLangStore} from "../../../stores/langStore.js";
 import {useUserStore} from "../../../stores/userStore.js";
-
+const {$loader} = useNuxtApp();
 const config = useRuntimeConfig();
 const cc_locale = useCookie('cc_locale');
 const i18n = useI18n();
@@ -143,8 +143,12 @@ const updateLangsList = () => {
 
 
 const changeLang = async (value) => {
+  $loader.startLoadingPage()
   await selectLocale(value, i18n); // Передаємо i18n
   cc_locale.value = value;
+  setTimeout(()=>{
+    $loader.closeLoadingPage()
+  },500)
 };
 </script>
 

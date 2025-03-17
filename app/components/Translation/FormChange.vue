@@ -2,43 +2,46 @@
   <UForm :validate="validate" :state="translateStore.filledTranslates" class="space-y-4 max-w-[600px] mx-auto py-5"
          @submit="saveTranslations">
 
-    <UFormGroup name="code">
-      <div class="relative">
+    <UFormField name="code">
+      <div class="flex items-center">
+        <div class="min-w-[90px] max-w-[90px] break-words mr-2">
+          {{ $t('t.filter.code') }}
+        </div>
         <UInput
+            class="w-full"
             v-model.trim="translateStore.filledTranslates.code"
             size="lg"
             :placeholder="$t('t.filter.code')"
-            class="pl-[100px]"
         />
-        <div class="absolute left-0 top-1/2 transform -translate-y-1/2 text-sm text-gray-500 w-[90px] break-words">
-          {{ $t('t.filter.code') }}
-        </div>
       </div>
-    </UFormGroup>
+      <template #error="{ error }">
+        <ErrorRequired :error="error"/>
+      </template>
+    </UFormField>
 
     <USeparator class="my-4"/>
 
     <template v-for="(item, idx) in langStore.locales">
-      <UFormGroup>
-        <div class="relative">
+      <UFormField>
+        <div class="flex items-center">
+          <div class="min-w-[90px] max-w-[90px] break-words mr-2">
+            {{ item.name }}
+          </div>
           <UInput
+              class="w-full"
               v-model.trim="translateStore.filledTranslates.items[item.code]"
               size="lg"
               :placeholder="$t('t.table.value')"
-              class="pl-[100px]"
           />
-          <div class="absolute left-0 top-1/2 transform -translate-y-1/2 text-sm text-gray-500 w-[90px] break-words">
-            {{ item.name }}
-          </div>
         </div>
-      </UFormGroup>
+      </UFormField>
     </template>
 
     <USeparator class="my-4"/>
 
     <div class="flex items-center justify-center">
       <UButton size="lg"
-               class="bg-waterloo-700 hover:bg-waterloo-600 transition duration-300 ease-in-out"
+               class="bg-waterloo-700 hover:bg-waterloo-600 transition duration-300 ease-in-out cursor-pointer"
                type="submit">
         {{ $t('t.btn.save') }}
       </UButton>
@@ -51,6 +54,7 @@
 
 import {useLangStore} from "../../../stores/langStore.js";
 import {useTranslateStore} from "../../../stores/translateStore.js";
+import ErrorRequired from "../PersonalUI/ErrorRequired.vue";
 
 defineProps({
   type: {
@@ -67,7 +71,7 @@ const langStore = useLangStore();
 
 const validate = (state) => {
   const errors = []
-  if (!state.code) errors.push({path: 'code', message: 'Required code'})
+  if (!state.code) errors.push({name: 'code', message: 't.label.error.code'})
   return errors
 }
 

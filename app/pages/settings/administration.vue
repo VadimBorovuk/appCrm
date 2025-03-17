@@ -1,7 +1,7 @@
 <template>
   <div>
-    <PersonalUITitle title="t.settings.administration"/>
-    <!--    <USeparator class="mt-4"/>-->
+    <PersonalUITitle title="t.settings.administration" icon="mdi:upload-circle"/>
+    <USeparator class="mt-2"/>
     <div class="lists-holder">
       <div>
         <div class="ibox float-e-margins">

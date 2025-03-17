@@ -19,6 +19,7 @@ export const useTranslateStore = defineStore('Translation', () => {
   } = useApiTranslate();
 
   const page = ref(1);
+  const limit = ref(20);
 
   const isOpenCreateTranslate = ref(false);
   const isOpenEditTranslate = ref(false);
@@ -42,7 +43,7 @@ export const useTranslateStore = defineStore('Translation', () => {
   })
 
   const filtersTranslate = ref({
-    limit: 20,
+    limit: limit.value,
     order: 'id',
     by: 'DESC',
     app_id: config.public.CLIENT_APP_ID
@@ -63,12 +64,12 @@ export const useTranslateStore = defineStore('Translation', () => {
     }
   }
 
-  const setPageOnFirst = () =>{
+  const setPageOnFirst = () => {
     page.value = 1
   }
   // methods for translation form page (create & edit)
 
-  const openEditModalTranslate = ({id, value}) =>{
+  const openEditModalTranslate = ({id, value}) => {
     isOpenEditTranslate.value = true
     objEditTranslation.value = {
       id,
@@ -117,7 +118,7 @@ export const useTranslateStore = defineStore('Translation', () => {
   const resetFilter = async () => {
     page.value = 1
     filtersTranslate.value = {
-      limit: 20,
+      limit: limit.value,
       order: 'id',
       by: 'DESC',
       app_id: config.public.CLIENT_APP_ID,
@@ -125,7 +126,6 @@ export const useTranslateStore = defineStore('Translation', () => {
     }
     await fetchTranslates(1, filtersTranslate.value)
   }
-
 
   const fetchTranslates = async (page, params) => {
     $loader.startLoadingPage()
@@ -161,7 +161,6 @@ export const useTranslateStore = defineStore('Translation', () => {
   const createTranslate = async () => {
     try {
       await transCreate(objCreateTranslation.value)
-      await fetchTranslates(page.value, filtersTranslate.value)
       closeModalTranslation()
     } catch (error) {
       return error.response.data
@@ -170,7 +169,6 @@ export const useTranslateStore = defineStore('Translation', () => {
   const editTranslate = async () => {
     try {
       await transUpdate(objEditTranslation.value)
-      await fetchTranslates(page.value, filtersTranslate.value)
       closeModalTranslationEdit()
     } catch (error) {
       return error.response.data
@@ -180,7 +178,6 @@ export const useTranslateStore = defineStore('Translation', () => {
   const deleteTranslationById = async (id) => {
     try {
       await translateDelete(id)
-      await fetchTranslates(page.value, filtersTranslate.value)
     } catch (error) {
       return error.response.data
     }
@@ -188,6 +185,7 @@ export const useTranslateStore = defineStore('Translation', () => {
 
   return {
     page,
+    limit,
     isOpenCreateTranslate,
     isOpenEditTranslate,
     objCreateTranslation,

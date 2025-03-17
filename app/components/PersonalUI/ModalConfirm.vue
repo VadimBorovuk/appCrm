@@ -1,20 +1,13 @@
 <template>
-  <UModal :model-value="visible">
-    <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
-      <div class="flex items-center justify-between">
-        <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
-          {{ $t('t.modal.title.agree') }}
-        </h3>
-        <UButton color="gray" variant="solid" icon="i-heroicons-x-mark-20-solid" class="-my-1"
-                 @click="emit('cancel-click')"/>
-      </div>
-      <USeparator class="my-4"/>
+  <UModal :open="visible"
+          @update:open="handleClose"
+          :title="$t('t.modal.agree.title')">
+    <template #body>
       <div>
         <p class="text-xl">{{ $t('t.title.agree.confirm') }}</p>
         <p>{{ $t('t.text.agree.confirm') }}</p>
       </div>
-      <USeparator class="my-4"/>
-      <div class="flex justify-end items-center">
+      <div class="flex justify-end items-center mt-4">
         <div>
           <PersonalUIButton
               active
@@ -28,9 +21,8 @@
               description="t.btn.cancel"
           />
         </div>
-
       </div>
-    </UCard>
+    </template>
   </UModal>
 </template>
 
@@ -38,13 +30,13 @@
 defineProps({
   visible: {
     type: Boolean,
-    default: false
+    default: true
   }
 })
 
 const emit = defineEmits(['cancel-click', 'agree-click'])
-const isOpenAgreeModal = ref(false);
-const closeAgreeModal = () => {
-  isOpenAgreeModal.value = false
-}
+// const isOpenAgreeModal = ref(false);
+const handleClose = () => {
+  emit('cancel-click');
+};
 </script>

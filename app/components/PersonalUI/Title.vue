@@ -1,6 +1,6 @@
 <template>
   <client-only>
-    <div class="flex items-center">
+    <div class="flex items-center min-h-[40px]">
       <div
           class="mr-3 flex items-center cursor-pointer"
           @click="goBackPage"
@@ -10,7 +10,10 @@
               name="ep:arrow-left"
         />
       </div>
-      <span class="text-[#131728] text-2xl font-bold">{{ $t(title) }}</span>
+      <div class="flex items-center">
+        <Icon v-if="!btnBackVisible" class="text-black mr-2" :size="30" :name="icon"/>
+        <span class="text-[#131728] text-2xl font-bold">{{ $t(title) }}</span>
+      </div>
     </div>
   </client-only>
 </template>
@@ -26,6 +29,10 @@ defineProps({
   btnBackVisible: {
     type: Boolean,
     default: false
+  },
+  icon: {
+    type: String,
+    default: ""
   }
 })
 const router = useRouter();

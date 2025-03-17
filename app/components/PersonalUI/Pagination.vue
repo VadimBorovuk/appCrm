@@ -1,10 +1,23 @@
 <template>
+  <div class="flex items-center">
+    <div class="flex items-center border-r-2 mr-3 border-waterloo-300">
+      <b class="mr-2">{{$t('t.label.show.count')}}</b>
+      <USelect :model-value="limit"
+               @update:model-value="emit('update:limit', $event)"
+               :items="[10,20,50]" class="w-24 mr-3"/>
+    </div>
+    <div class="flex items-center">
+      <b class="mr-2">{{$t('t.label.total.items')}}:</b>
+      <span>{{total}}</span>
+    </div>
+  </div>
+
   <UPagination
-      size="xl"
+      size="lg"
       :page="page"
       :items-per-page="pageCount"
       :total="total"
-      @update:page="updatePage"
+      @update:page="updateCurrentPage"
       color="neutral" variant="outline"
       active-color="neutral"
       show-edges
@@ -24,11 +37,15 @@ defineProps({
   page: {
     type: Number,
     default: 1
+  },
+  limit: {
+    type: Number,
+    default: 20
   }
 })
-const emit = defineEmits(["update:page"])
+const emit = defineEmits(["update:page", "update:limit"])
 
-const updatePage = (newPage) => {
+const updateCurrentPage = (newPage) => {
   emit("update:page", newPage)
 }
 

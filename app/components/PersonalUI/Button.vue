@@ -1,8 +1,7 @@
 <template>
   <client-only v-if="visible">
-    <button
-        :disabled="disabled"
-        @click="emit('click')"
+    <div
+        @click="!disabled && emit('click')"
         class="flex items-center justify-center h-[40px] text-sm
          cursor-pointer py-2 px-3 rounded-lg transition duration-300 ease-in-out"
         :class="active ? 'bg-waterloo-700 hover:bg-waterloo-600' : 'bg-waterloo-50 hover:bg-whiteLilac-500' "
@@ -11,7 +10,7 @@
       <p class="text-md font-bold break-all"
          :class="active ? 'text-white' : 'text-black' "
       >{{ $t(description) }}</p>
-    </button>
+    </div>
   </client-only>
 </template>
 
@@ -42,6 +41,3 @@ defineProps({
 const emit = defineEmits(['click'])
 </script>
 
-<style lang="scss" scoped>
-
-</style>

@@ -12,9 +12,8 @@ export const useUserStore = defineStore('user', () => {
   })
 
   const departments = ref([
-    {label: "CallCenter", icon: "ic:baseline-headset-mic", path: "callcenter/#/"},
-    {label: "ServiceDesk", icon: "ic:baseline-table-chart", path: "service-desk/#/"},
-    {label: "Gifts", icon: "ic:baseline-card-giftcard", path: "gifts/#/"},
+    {code: "call_center", icon: "ic:baseline-headset-mic", path: "callcenter/#/"},
+    {code: "service_desk", icon: "ic:baseline-table-chart", path: "service-desk/#/"},
   ])
   const errorUserData = ref(null)
 

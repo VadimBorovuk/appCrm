@@ -49,11 +49,11 @@ useHead({
 })
 
 import {onMounted} from 'vue';
-import {useToastFunc} from "../../../composables/useNotivue.js";
+import {useShowNotivue} from "../../../composables/useNotivue.js";
 
 
 const routeStore = useRouteGenerateStore();
-const {showNotivue} = useToastFunc();
+const {showNotivue} = useShowNotivue();
 
 const setGenerateRoutes = async () => {
   const error = await routeStore.getRoutesFunc();

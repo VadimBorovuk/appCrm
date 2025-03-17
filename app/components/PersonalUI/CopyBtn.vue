@@ -7,7 +7,7 @@
 <script setup>
 
 import {useClipboard} from "../../../composables/useClipboard.js";
-import {useToastFunc} from "../../../composables/useNotivue.js";
+import {useShowNotivue} from "../../../composables/useNotivue.js";
 
 const props = defineProps({
   textCopy: {
@@ -21,7 +21,7 @@ const props = defineProps({
 })
 const {t} = useI18n()
 const { copyToClipboard } = useClipboard();
-const {showNotivue} = useToastFunc();
+const {showNotivue} = useShowNotivue();
 
 const copyValue = async () => {
   const success = await copyToClipboard(props.valueCopy);

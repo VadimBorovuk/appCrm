@@ -1,4 +1,4 @@
-export const useToastFunc = (haveError, errorText, successText) => {
+export const useShowNotivue = (haveError, errorText, successText) => {
   const {t} = useI18n(); // Call once at the top
 
 

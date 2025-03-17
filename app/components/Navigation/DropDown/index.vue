@@ -3,12 +3,12 @@
       class="cursor-pointer"
       @update:open="emit('update-langs')"
       :items="items"
-      :ui="{content: 'w-48'}"
+      :ui="{content: 'w-60'}"
   >
     <template #account="{ item }">
       <div class="text-left">
         <p>
-          Signed in as
+          {{$t('t.label.signin')}}
         </p>
         <p class="truncate font-medium text-gray-900 dark:text-white">
           {{ email }}

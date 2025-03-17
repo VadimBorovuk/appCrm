@@ -29,49 +29,12 @@ const cc_locale = useCookie('cc_locale');
 const i18n = useI18n();
 const {selectLocale, locales} = useLangStore();
 
-const {locale} = i18n;
+const {locale, t} = i18n;
 const {userData, departments} = useUserStore();
 const listDropCrm = ref([])
 const langsList = ref([])
 const departmentsList = ref([])
 
-const itemsHeader = ref([
-  [
-    {
-      label: 'Benjamin',
-      avatar: {
-        src: 'https://github.com/benjamincanac.png'
-      },
-      type: 'label'
-    }
-  ],
-  [
-    {
-      label: 'Profile',
-      icon: 'i-lucide-user',
-    },
-    {
-      label: 'Billing',
-      icon: 'i-lucide-credit-card',
-      disabled: true
-    },
-    {
-      label: 'Settings',
-      icon: 'i-lucide-cog',
-      kbds: [',']
-    },
-    {
-      label: 'Keyboard shortcuts',
-      icon: 'i-lucide-monitor'
-    }
-  ],
-  [
-    {
-      label: 'Logout',
-      icon: 'i-lucide-log-out'
-    }
-  ]
-])
 
 const getIconOfLang = (code) => {
   switch (code) {
@@ -110,31 +73,31 @@ const updateLangsList = () => {
   }))]
 
   departmentsList.value = [departments.map((department) => ({
-    label: department.label,
+    label: t(`t.department.${department.code}`),
     icon: department.icon,
     to: `${config.public.CLIENT_APP_PATH}${department.path}`
   }))]
 
   listDropCrm.value = [
     [{
-      label: 'ben@example.com',
+      label: '',
       slot: 'account',
       disabled: true
     }],
     [{
-      label: 'Languages',
+      label: t('t.label.drop.languages'),
       slot: 'languages',
       disabled: true
     }],
     ...langsList.value,
     [{
-      label: 'Departments',
+      label: t('t.label.drop.departments'),
       slot: 'departments',
       disabled: true
     }],
     ...departmentsList.value,
     [{
-      label: 'Sign out',
+      label: t('t.label.drop.logout'),
       icon: 'ic:twotone-log-out',
       to: config.public.CLIENT_APP_PATH
     }]

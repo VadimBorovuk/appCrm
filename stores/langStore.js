@@ -128,12 +128,6 @@ export const useLangStore = defineStore('lang', () => {
       }
       await transUpdateByCode(filledDataTranslation.value)
       isOpenSearchTranslate.value = false
-
-      //
-      //
-      // this.filledTrans.code = this.selectCode[0];
-      // this.filledTrans.items[this.localeLang] = this.totalValueCode;
-      // this.clearCache();
     } catch (error) {
       return error.response.data
     }

@@ -114,10 +114,10 @@ import {onMounted, watch} from 'vue';
 import {useRouter} from 'vue-router'
 
 import {useUserStore} from "../../../stores/userStore.js";
-import {useToastFunc} from "../../../composables/useNotivue.js";
+import {useShowNotivue} from "../../../composables/useNotivue.js";
 import {useLangStore} from "../../../stores/langStore.js";
 
-const {showNotivue} = useToastFunc();
+const {showNotivue} = useShowNotivue();
 const router = useRouter();
 
 const {$loader, $permission} = useNuxtApp();

@@ -54,7 +54,7 @@
 <script setup>
 import {useLangStore} from "../../../stores/langStore.js";
 import {useClipboard} from "../../../composables/useClipboard.js";
-import {useToastFunc} from "../../../composables/useNotivue.js";
+import {useShowNotivue} from "../../../composables/useNotivue.js";
 
 defineProps({
   visible: {
@@ -64,7 +64,7 @@ defineProps({
 })
 const i18n = useI18n();
 const {$loader} = useNuxtApp();
-const {showNotivue} = useToastFunc();
+const {showNotivue} = useShowNotivue();
 const langStore = useLangStore()
 const {copyToClipboard} = useClipboard();
 

@@ -1,7 +1,8 @@
 import {ref} from "vue";
-import {defineStore} from 'pinia'
-import {useLangStore} from "./langStore.js";
-import {useApiTranslate} from "../api/translate.js";
+import {defineStore} from "pinia";
+import {useLangStore} from "~/stores/langStore.js";
+import {useApiTranslate} from "~/api/translate.js";
+import { useFormatDateWithTimezone} from "~/composables/useDateFormat.js"
 
 export const useTranslateStore = defineStore('Translation', () => {
 

@@ -23,9 +23,11 @@
 </template>
 
 <script setup>
+import {useTranslateStore} from '~/stores/translateStore.js';
+
 const {$selectedText} = useNuxtApp();
 const translateStore = useTranslateStore();
-const textCopied = ref('')
+const textCopied = ref('');
 
 const closeModal = () => {
   translateStore.handleSearchModal(false)
@@ -39,6 +41,9 @@ watch($selectedText, (newText) => {
     translateStore.handleSearchModal(true)
     translateStore.setTranslateValue(newText)
     translateStore.loadLanguagesFromLS()
+    // close all modals
+    translateStore.closeModalTranslation()
+    translateStore.closeModalTranslationEdit()
   }
 });
 </script>

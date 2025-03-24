@@ -1,5 +1,6 @@
 import { defineNuxtPlugin } from '#app';
 import axios from 'axios';
+import {useAuthStore} from "~/stores/authStore.js";
 
 export default defineNuxtPlugin((nuxtApp) => {
   const {token, role, userId} = useAuthStore()

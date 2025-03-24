@@ -4,7 +4,7 @@
 </template>
 
 <script setup>
-// settings for head by locale
+import {useTranslatedHead} from "~/composables/useTranslatedHead.js";
 
 const titleContent = ref('t.main.page')
 useHead({

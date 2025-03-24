@@ -149,8 +149,10 @@
 </template>
 
 <script setup>
-
-import ErrorRequired from "../PersonalUI/ErrorRequired.vue";
+import {useShowNotivue} from "~/composables/useNotivue.js"
+import {useLangStore} from "~/stores/langStore.js"
+import {useTranslateStore} from "~/stores/translateStore.js"
+import ErrorRequired from "~/components/PersonalUI/ErrorRequired.vue";
 
 const props = defineProps({
   visible: {
@@ -219,7 +221,6 @@ watch(() => translateStore.isOpenSearchTranslate, (newValue) => {
     })
   }
 }, {deep: true})
-
 
 const emit = defineEmits(['cancel-click', 'agree-click'])
 </script>

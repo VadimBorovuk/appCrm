@@ -9,6 +9,8 @@
 </template>
 
 <script setup>
+import {useTranslatedHead} from "~/composables/useTranslatedHead.js";
+
 const titleContent = ref('t.edit.translation.key')
 useHead({
   title: useTranslatedHead(titleContent.value)

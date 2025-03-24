@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import {useApiUser} from "../api/user.js";
+import {useApiUser} from "~/api/user.js";
 
 export const useUserStore = defineStore('user', () => {
   const {getUserInfo} = useApiUser()

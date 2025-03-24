@@ -1,7 +1,8 @@
 <template>
+<!--   @update:open="emit('update-langs')"-->
   <UDropdownMenu
       class="cursor-pointer"
-      @update:open="emit('update-langs')"
+
       :items="items"
       :ui="{content: 'w-60'}"
   >
@@ -20,7 +21,6 @@ defineProps({
     default: ""
   }
 })
-const emit = defineEmits(['update-langs'])
 </script>
 
 

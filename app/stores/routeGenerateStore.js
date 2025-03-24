@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 import {useRouter} from "#vue-router";
-import {useGenerateRoute} from "../api/route.js";
+import {useGenerateRoute} from "~/api/route.js";
 
 export const useRouteGenerateStore = defineStore('generateRoute', () => {
   const {$loader} = useNuxtApp();

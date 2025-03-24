@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia';
 import {useCookie} from 'nuxt/app';
-import {useApiTranslate} from "../api/translate.js";
+import {useApiTranslate} from "~/api/translate.js";
 
 export const useLangStore = defineStore('lang', () => {
   const locales = ref([

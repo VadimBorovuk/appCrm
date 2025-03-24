@@ -108,10 +108,13 @@ import {useNuxtApp} from "#app";
 import {onMounted} from 'vue';
 import {useRouter} from 'vue-router'
 import {useI18n} from "vue-i18n";
+import {useTranslatedHead} from "~/composables/useTranslatedHead.js";
+import {useShowNotivue} from "~/composables/useNotivue.js";
+import {useTranslateStore} from '~/stores/translateStore.js';
+import {useUserStore} from '~/stores/userStore.js';
+import {useLangStore} from '~/stores/langStore.js';
+
 const titleContent = ref('t.settings.translations')
-useHead({
-  title: useTranslatedHead(titleContent.value)
-});
 const i18n = useI18n();
 const {showNotivue} = useShowNotivue();
 const router = useRouter();
@@ -186,11 +189,11 @@ const closeAgreeModal = () => {
 
 const setAgreeDelete = async () => {
   const error = await translateStore.deleteTranslationById(currentIdByTranslate.value)
+  showNotivue(error, 't.error.delete.translate', 't.success.delete.translate')
   if (!error) {
     isOpenAgreeModal.value = false
     await getTranslates(1)
   }
-  showNotivue(error, 't.error.delete.translate', 't.success.delete.translate')
 }
 const updatePage = (newPage) => {
   translateStore.page = newPage
@@ -221,6 +224,9 @@ onMounted(() => {
   getTranslates(1)
 });
 
+useHead({
+  title: useTranslatedHead(titleContent.value)
+});
 </script>
 
 <style>

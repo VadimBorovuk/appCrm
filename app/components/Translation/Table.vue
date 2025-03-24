@@ -100,12 +100,12 @@ const getNameOfLang = (value) => {
 }
 
 // for pinned col
-const columnPinning = ref({
+const columnPinning = computed(() => ({
   left: [''],
   right: ['actions']
-})
+}))
 
-const columns = ref([
+const columns = computed(() => [
   {
     accessorKey: 'id',
     header: () => h('div', {class: 'text-left text-white'}, t('t.table.id')),

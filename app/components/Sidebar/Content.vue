@@ -10,34 +10,36 @@
 </template>
 
 <script setup>
-import {ref} from 'vue';
 import {useRoute} from "vue-router";
+
 const {$permission} = useNuxtApp();
 const {userData} = useUserStore();
+const {t} = useI18n(); // Call once at the top
+const langStore = useLangStore()
+
 const route = useRoute();
-const menuLinks = ref([
+const menuLinks = computed(() => [
   [
     {
-      label: 't.nav.main',
+      label: t('t.nav.main'),
       icon: 'material-symbols-light:house-rounded',
       type: 'link',
       to: '/main',
       visible: true
     },
     {
-      label: 't.nav.settings',
+      label: t('t.nav.settings'),
       icon: 'material-symbols-light:settings-rounded',
-      collapsed: false,
-      defaultOpen: route.path.startsWith('/settings'), // Where to display the linked URL, as the name for a browsing context.
+      defaultOpen: route.path.startsWith('/settings'),
       visible: $permission.canAction(userData.access, 'route.link.settings'),
       children: [
         {
-          label: 't.nav.administration',
+          label: t('t.nav.administration'),
           to: '/settings/administration',
           visible: $permission.canAction(userData.access, 'route.link.administration'),
         },
         {
-          label: 't.nav.translations',
+          label: t('t.nav.translations'),
           to: '/settings/translations',
           visible: $permission.canAction(userData.access, 'route.link.translations'),
         }

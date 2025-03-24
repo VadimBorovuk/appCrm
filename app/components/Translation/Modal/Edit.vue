@@ -45,8 +45,8 @@
 </template>
 
 <script setup>
-import ErrorRequired from "../../PersonalUI/ErrorRequired.vue";
-
+import ErrorRequired from "~/components/PersonalUI/ErrorRequired.vue";
+import {useTranslateStore} from "~/stores/translateStore.js"
 const translateStore = useTranslateStore();
 const validateEdit = (state) => {
   const errors = []

@@ -1,5 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
-
 import {cssConfig, fontsConfig, i118Config, modulesConfig, pluginsConfig, runtimeEnvConfig} from "./config/main.js";
 
 export default defineNuxtConfig({
@@ -7,6 +5,13 @@ export default defineNuxtConfig({
   devtools: {enabled: true},
   future: {
     compatibilityVersion: 4
+  },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/png', href: '/customFavicon.png' }
+      ]
+    }
   },
   modules: modulesConfig,
   css: cssConfig,
@@ -26,9 +31,9 @@ export default defineNuxtConfig({
       }
     }
   },
-  // routeRules:{
-  //   '/settings/**': {ssr: false}
-  // },
+  routeRules:{
+    '/settings/**': {ssr: false}
+  },
   colorMode: {
     preference: 'light', // За замовчуванням буде 'light'
     dataValue: 'theme',  // Додає `data-theme="light"` у <html>

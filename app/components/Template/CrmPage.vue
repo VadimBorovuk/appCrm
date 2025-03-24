@@ -11,7 +11,6 @@
         <!-- Фільтр -->
         <slot name="filter"/>
 
-
         <USeparator class="my-6"/>
 
         <!-- Таблиця -->

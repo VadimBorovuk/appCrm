@@ -48,5 +48,4 @@ const emit = defineEmits(["update:page", "update:limit"])
 const updateCurrentPage = (newPage) => {
   emit("update:page", newPage)
 }
-
 </script>

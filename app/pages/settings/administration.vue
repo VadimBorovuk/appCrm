@@ -32,15 +32,13 @@
 
 <script setup>
 import {onMounted} from 'vue';
+import {useShowNotivue} from "~/composables/useNotivue.js";
+import {useRouteGenerateStore} from "~/stores/routeGenerateStore.js";
+import {useTranslatedHead} from "~/composables/useTranslatedHead.js";
+const {showNotivue} = useShowNotivue();
 
 const titleContent = ref('t.settings.administration');
-
-useHead({
-  title: useTranslatedHead(titleContent.value)
-});
-
 const routeStore = useRouteGenerateStore();
-const {showNotivue} = useShowNotivue();
 
 const setGenerateRoutes = async () => {
   const error = await routeStore.getRoutesFunc();
@@ -55,5 +53,9 @@ const saveRoutesToJson = async () => {
 onMounted(() => {
   routeStore.setCurrentRoutes();
   setGenerateRoutes();
+});
+
+useHead({
+  title: useTranslatedHead(titleContent.value)
 });
 </script>

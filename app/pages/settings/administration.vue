@@ -1,31 +1,20 @@
 <template>
   <div>
-    <PersonalUITitle title="t.settings.administration" icon="mdi:upload-circle"/>
+    <PersonalUITitle :title="titleContent" icon="mdi:upload-circle"/>
     <USeparator class="mt-2"/>
-    <div class="lists-holder">
-      <div>
-        <div class="ibox float-e-margins">
-          <div class="ibox-content">
-            <h3 class="font-bold">{{ $t('t.list.routes.api') }}</h3>
-            <client-only>
-              <div v-for="item in routeStore.generatedRouters" :key="item.path" class="list-group-item">
-                <b>{{ item.name }}</b> - {{ item.path }}
-              </div>
-              <br/>
-            </client-only>
-          </div>
+    <div class="flex justify-between my-4">
+      <div class="flex-1 mr-2">
+        <h3 class="font-bold mb-2">{{ $t('t.list.routes.api') }}</h3>
+        <div v-for="item in routeStore.generatedRouters" :key="item.path"
+             class="px-6 py-3 bg-white rounded-lg mb-1">
+          <b>{{ item.name }}</b> - {{ item.path }}
         </div>
       </div>
-      <div>
-        <div class="ibox float-e-margins">
-          <div class="ibox-content">
-            <h3 class="font-bold">{{ $t('t.list.routes.system') }}</h3>
-            <client-only>
-              <div v-for="item in routeStore.currentRoutes" :key="item.path" class="list-group-item">
-                <b>{{ item.name }}</b> - {{ item.path }}
-              </div>
-            </client-only>
-          </div>
+      <div class="flex-1">
+        <h3 class="font-bold mb-2">{{ $t('t.list.routes.system') }}</h3>
+        <div v-for="item in routeStore.currentRoutes" :key="item.path"
+             class="px-6 py-3 bg-white rounded-lg mb-1">
+          <b>{{ item.name }}</b> - {{ item.path }}
         </div>
       </div>
     </div>
@@ -42,15 +31,13 @@
 </template>
 
 <script setup>
-import {useRouteGenerateStore} from "../../../stores/routeGenerateStore.js";
+import {onMounted} from 'vue';
+
+const titleContent = ref('t.settings.administration');
 
 useHead({
-  title: "Generate routes"
-})
-
-import {onMounted} from 'vue';
-import {useShowNotivue} from "../../../composables/useNotivue.js";
-
+  title: useTranslatedHead(titleContent.value)
+});
 
 const routeStore = useRouteGenerateStore();
 const {showNotivue} = useShowNotivue();
@@ -70,40 +57,3 @@ onMounted(() => {
   setGenerateRoutes();
 });
 </script>
-
-<style scoped>
-.ibox {
-  margin-top: 30px;
-}
-
-.ibox .ibox-title {
-  margin-bottom: 5px;
-}
-
-.ibox .ibox-content > h3 {
-  margin-bottom: 10px;
-}
-
-.btn-main {
-  padding: 10px 30px;
-}
-
-.lists-holder {
-  display: flex;
-  justify-content: space-between;
-}
-
-.lists-holder > div {
-  width: 49%;
-}
-
-.list-group-item {
-  position: relative;
-  display: block;
-  padding: 0.75rem 1.25rem;
-  background-color: #fff;
-  border: 1px solid #ebedf2;
-  border-radius: 0.25rem;
-}
-</style>
-

@@ -5,16 +5,6 @@
       :items="items"
       :ui="{content: 'w-60'}"
   >
-    <template #account="{ item }">
-      <div class="text-left">
-        <p>
-          {{$t('t.label.signin')}}
-        </p>
-        <p class="truncate font-medium text-gray-900 dark:text-white">
-          {{ email }}
-        </p>
-      </div>
-    </template>
     <UButton icon="i-lucide-menu" color="neutral" variant="outline"/>
   </UDropdownMenu>
 </template>

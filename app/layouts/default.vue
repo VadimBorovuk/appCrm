@@ -14,7 +14,8 @@
     </main>
 
     <PersonalUIModalSearchTranslate
-        :visible="langStore.isOpenSearchTranslate"
+        :visible="translateStore.isOpenSearchTranslate"
+        :textCopied="textCopied"
         @cancel-click="closeModal"
         @agree-click="saveTranslate"
     />
@@ -22,39 +23,22 @@
 </template>
 
 <script setup>
-import {useLangStore} from "../../stores/langStore.js";
-
 const {$selectedText} = useNuxtApp();
-const langStore = useLangStore()
+const translateStore = useTranslateStore();
+const textCopied = ref('')
 
 const closeModal = () => {
-  langStore.handleSearchModal(false)
+  translateStore.handleSearchModal(false)
 }
 const saveTranslate = () => {
-  langStore.handleSearchModal(false)
+  translateStore.handleSearchModal(false)
 }
 watch($selectedText, (newText) => {
   if (newText) {
-    langStore.handleSearchModal(true)
-    langStore.setTranslateValue(newText)
-    langStore.loadLanguagesFromLS()
-    // showGenerateResult.value = true;
-    // selectCode.value = [];
-    // dataLangs.value = [];
-    //
-    // const objlang = JSON.parse(localStorage.getItem(`crm_locale_${locale.value}`));
-    // for (const lang in objlang.locales) {
-    //   if (objlang.locales[lang] === newText) {
-    //     dataLangs.value.push({
-    //       status: 0,
-    //       new_text: '',
-    //       [lang]: objlang.locales[lang],
-    //     });
-    //   }
-    // }
+    textCopied.value = newText
+    translateStore.handleSearchModal(true)
+    translateStore.setTranslateValue(newText)
+    translateStore.loadLanguagesFromLS()
   }
 });
 </script>
-
-
-

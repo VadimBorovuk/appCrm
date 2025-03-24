@@ -50,10 +50,6 @@
 </template>
 
 <script setup>
-
-
-import {useLangStore} from "../../../stores/langStore.js";
-import {useTranslateStore} from "../../../stores/translateStore.js";
 import ErrorRequired from "../PersonalUI/ErrorRequired.vue";
 
 defineProps({

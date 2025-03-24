@@ -29,7 +29,6 @@ export const useUserStore = defineStore('user', () => {
       userData.value = {access, department, role, user_info}
       errorUserData.value = null
     } catch (error) {
-      console.error('Помилка при отриманні інформації про акаунт:', error)
       errorUserData.value = error.message
       userData.value = {
         access: {},

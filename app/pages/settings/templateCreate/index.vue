@@ -1,6 +1,6 @@
 <template>
   <TemplateDynamicPage
-      title="t.settings.list.add_multiple"
+      :title="titleContent"
       btnBackVisible
   >
     <template #content-dynamic>
@@ -10,3 +10,11 @@
     </template>
   </TemplateDynamicPage>
 </template>
+
+
+<script setup>
+const titleContent = ref('t.settings.list.add_multiple')
+useHead({
+  title: useTranslatedHead(titleContent.value)
+});
+</script>

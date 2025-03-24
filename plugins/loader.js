@@ -1,4 +1,3 @@
-
 export default defineNuxtPlugin((nuxtApp) => {
   const router = useRouter();
   const data = ref(false)

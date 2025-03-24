@@ -88,10 +88,9 @@
 
 <script setup>
 import ErrorRequired from "../../PersonalUI/ErrorRequired.vue";
-import {useTranslateStore} from "../../../../stores/translateStore.js";
 const translateStore = useTranslateStore();
 
-const props = defineProps({
+defineProps({
   languages: {
     type: Array,
     default: []

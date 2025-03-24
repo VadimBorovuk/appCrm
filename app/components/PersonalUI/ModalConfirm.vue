@@ -35,7 +35,6 @@ defineProps({
 })
 
 const emit = defineEmits(['cancel-click', 'agree-click'])
-// const isOpenAgreeModal = ref(false);
 const handleClose = () => {
   emit('cancel-click');
 };

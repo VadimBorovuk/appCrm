@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-between h-[70px] border-b-[1.1px] border-zinc-300 mb-3">
+  <div class="flex items-center justify-between h-[70px] border-b-[1.1px] border-[#e2e8f0] mb-3">
     <div class="w-[320px] flex items-center h-full">
       <client-only>
         <NavigationDropDown
@@ -18,17 +18,14 @@
 
 
 <script setup>
-
 import {useI18n} from 'vue-i18n';
 import {useCookie} from 'nuxt/app';
-import {useLangStore} from "../../../stores/langStore.js";
-import {useUserStore} from "../../../stores/userStore.js";
+
 const {$loader} = useNuxtApp();
 const config = useRuntimeConfig();
 const cc_locale = useCookie('cc_locale');
 const i18n = useI18n();
 const {selectLocale, locales} = useLangStore();
-
 const {locale, t} = i18n;
 const {userData, departments} = useUserStore();
 const listDropCrm = ref([])
@@ -79,11 +76,11 @@ const updateLangsList = () => {
   }))]
 
   listDropCrm.value = [
-    [{
-      label: '',
-      slot: 'account',
-      disabled: true
-    }],
+    // [{
+    //   label: '',
+    //   slot: 'account',
+    //   disabled: true
+    // }],
     [{
       label: t('t.label.drop.languages'),
       slot: 'languages',
@@ -114,4 +111,6 @@ const changeLang = async (value) => {
   },500)
 };
 </script>
+
+
 

@@ -24,11 +24,12 @@
 
         <NuxtLink v-if="canEdit" :to="`/settings/translate_${row.original.code}`"
                   class="cursor-pointer underline hover:no-underline max-w-[300px]">
-          {{ row.original.code }}
+          {{ row.original.code ? row.original.code : '' }}
         </NuxtLink>
-        <span v-else class="max-w-[300px]">
-                {{ row.original.code }}
-              </span>
+        <span
+            v-else class="max-w-[300px]">
+            {{ row.original.code ? row.original.code : '' }}
+        </span>
         <PersonalUICopyBtn
             v-if="row.original.code"
             text-copy="t.copy.code"
@@ -38,7 +39,7 @@
     </template>
     <template #value-cell="{ row }">
       <div class="w-[350px] break-words whitespace-pre-line flex items-center">
-        <div class="max-w-[300px]">{{ row.original.value }}</div>
+        <div class="max-w-[300px]">{{ row.original.value ? row.original.value : '-' }}</div>
         <PersonalUICopyBtn
             v-if="row.original.value"
             text-copy="t.copy.value"
@@ -69,6 +70,7 @@
 
 <script setup>
 import {h, resolveComponent} from 'vue';
+
 const props = defineProps({
   data: {
     type: Object,
@@ -99,7 +101,7 @@ const getNameOfLang = (value) => {
 
 // for pinned col
 const columnPinning = ref({
-  left: [],
+  left: [''],
   right: ['actions']
 })
 

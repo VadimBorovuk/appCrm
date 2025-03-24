@@ -11,11 +11,10 @@
 
 <script setup>
 import {ref} from 'vue';
-import {useUserStore} from "../../../stores/userStore.js";
-
+import {useRoute} from "vue-router";
 const {$permission} = useNuxtApp();
-const {userData} = useUserStore()
-
+const {userData} = useUserStore();
+const route = useRoute();
 const menuLinks = ref([
   [
     {
@@ -23,13 +22,14 @@ const menuLinks = ref([
       icon: 'material-symbols-light:house-rounded',
       type: 'link',
       to: '/main',
-      visible: true // Завжди відображається
+      visible: true
     },
     {
       label: 't.nav.settings',
       icon: 'material-symbols-light:settings-rounded',
       collapsed: false,
-      visible: $permission.canAction(userData.access, 'route.link.settings'), // Відображення залежить від змінної
+      defaultOpen: route.path.startsWith('/settings'), // Where to display the linked URL, as the name for a browsing context.
+      visible: $permission.canAction(userData.access, 'route.link.settings'),
       children: [
         {
           label: 't.nav.administration',
@@ -44,7 +44,7 @@ const menuLinks = ref([
       ]
     }
   ]
-])
+]);
 
 // Фільтруємо тільки видимі елементи
 const filteredLinks = computed(() =>

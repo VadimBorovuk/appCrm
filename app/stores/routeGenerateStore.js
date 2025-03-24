@@ -1,5 +1,4 @@
 import {defineStore} from 'pinia'
-
 import {useRouter} from "#vue-router";
 import {useGenerateRoute} from "../api/route.js";
 

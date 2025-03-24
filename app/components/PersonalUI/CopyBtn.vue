@@ -5,10 +5,6 @@
 </template>
 
 <script setup>
-
-import {useClipboard} from "../../../composables/useClipboard.js";
-import {useShowNotivue} from "../../../composables/useNotivue.js";
-
 const props = defineProps({
   textCopy: {
     type: String,

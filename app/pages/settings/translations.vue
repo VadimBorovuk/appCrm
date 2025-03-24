@@ -1,6 +1,6 @@
 <template>
   <TemplateCrmPage
-      title="t.settings.translations"
+      :title="titleContent"
       icon="mdi:google-translate"
   >
     <!-- actions -->
@@ -104,25 +104,18 @@
 </template>
 
 <script setup>
-import {useTranslateStore} from "../../../stores/translateStore.js";
-
-useHead({
-  title: 'Translations'
-})
 import {useNuxtApp} from "#app";
-import {onMounted, watch} from 'vue';
+import {onMounted} from 'vue';
 import {useRouter} from 'vue-router'
-
-import {useUserStore} from "../../../stores/userStore.js";
-import {useShowNotivue} from "../../../composables/useNotivue.js";
-import {useLangStore} from "../../../stores/langStore.js";
-
+import {useI18n} from "vue-i18n";
+const titleContent = ref('t.settings.translations')
+useHead({
+  title: useTranslatedHead(titleContent.value)
+});
+const i18n = useI18n();
 const {showNotivue} = useShowNotivue();
 const router = useRouter();
-
 const {$loader, $permission} = useNuxtApp();
-const i18n = useI18n();
-const {t} = i18n;
 const translateStore = useTranslateStore();
 const {userData} = useUserStore();
 const langStore = useLangStore();
@@ -135,7 +128,6 @@ const actionEditTranslate = computed(() => $permission.canAction(userData.access
 const actionDeleteTranslate = computed(() => $permission.canAction(userData.access, 'delete.translate.once'))
 const actionCreateTranslates = computed(() => $permission.canAction(userData.access, 'create.translates.multiple'))
 const actionClearCache = computed(() => $permission.canAction(userData.access, 'clear.translate.cache'))
-
 
 const clearCache = () => {
   $loader.startLoadingPage()
@@ -153,7 +145,6 @@ const resetFilterList = async () => {
   await translateStore.resetFilter()
 }
 
-
 const filterList = async () => {
   translateStore.page = 1
   await getTranslates(1)
@@ -164,13 +155,11 @@ const getTranslates = async (page) => {
   showNotivue(error, 't.error.load.translates', false)
 }
 
-
 const saveCreateTranslate = async () => {
   const error = await translateStore.createTranslate()
   await getTranslates(1)
   showNotivue(error, 't.error.save.translate', 't.success.save.translate')
 }
-
 
 const closeEditTranslationModal = () => {
   translateStore.closeModalTranslationEdit()

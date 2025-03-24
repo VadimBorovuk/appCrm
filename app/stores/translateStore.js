@@ -1,7 +1,7 @@
 import {ref} from "vue";
 import {defineStore} from 'pinia'
+import {useLangStore} from "./langStore.js";
 import {useApiTranslate} from "../api/translate.js";
-import {useFormatDateWithTimezone} from "../composables/useDateFormat.js";
 
 export const useTranslateStore = defineStore('Translation', () => {
 
@@ -9,6 +9,7 @@ export const useTranslateStore = defineStore('Translation', () => {
   const {$loader} = useNuxtApp();
   const route = useRoute()
   const config = useRuntimeConfig();
+  const {locale} = useLangStore()
   const {
     transGetList,
     transCreate,
@@ -21,10 +22,31 @@ export const useTranslateStore = defineStore('Translation', () => {
   const page = ref(1);
   const limit = ref(20);
 
+  const translateValue = ref('');
+  const dataLanguages = ref([]);
+
   const isOpenCreateTranslate = ref(false);
   const isOpenEditTranslate = ref(false);
+  const isOpenSearchTranslate = ref(false);
+
+  const currentObjLanguages = ref({
+    locales: {}
+  })
+
+  const filledDataTranslation = ref({
+    code: "",
+    app_id: config.public.CLIENT_APP_ID,
+    items: {},
+  });
 
   const objCreateTranslation = ref({
+    lang: null,
+    code: "",
+    value: "",
+    app_id: config.public.CLIENT_APP_ID
+  })
+
+  const findKeyCreateTranslation = ref({
     lang: null,
     code: "",
     value: "",
@@ -56,6 +78,29 @@ export const useTranslateStore = defineStore('Translation', () => {
     items: {}
   })
 
+  const handleStatusForEdit = (row) => {
+    if (row.status === 0) {
+      row.status = 1
+    } else {
+      row.status = 0
+    }
+  }
+  const applyParamToTranslation = (body) =>{
+    findKeyCreateTranslation.value = {
+      lang: body.lang,
+      code: body.code,
+      value: body.value,
+      app_id: config.public.CLIENT_APP_ID
+    }
+  }
+
+  const handleSearchModal = (value) => {
+    isOpenSearchTranslate.value = value
+  }
+  const setTranslateValue = (searchValue) => {
+    translateValue.value = searchValue
+  }
+
   const clearFilledTranslates = () => {
     filledTranslates.value = {
       code: route.params.code || "",
@@ -77,6 +122,22 @@ export const useTranslateStore = defineStore('Translation', () => {
     }
   }
 
+  const updateLanguageCode = async (row) => {
+    try {
+      filledDataTranslation.value = {
+        app_id: filledDataTranslation.value.app_id,
+        code: row.code,
+        items: {
+          [`${locale}`]: row.value
+        }
+      }
+      await transUpdateByCode(filledDataTranslation.value)
+      isOpenSearchTranslate.value = false
+    } catch (error) {
+      return error.response.data
+    }
+  }
+
   const fetchListTranslateByCode = async (code) => {
     try {
       filledTranslates.value.code = code
@@ -87,6 +148,28 @@ export const useTranslateStore = defineStore('Translation', () => {
     } catch (error) {
       return error
     }
+  }
+
+  const loadLanguagesFromLS = () => {
+    if (process.client) {
+      currentObjLanguages.value = JSON.parse(localStorage.getItem(`nf_locale_${locale}`))
+    }
+    let arrData = []
+    if (currentObjLanguages.value && currentObjLanguages.value.locales){
+      for (var lang in currentObjLanguages.value.locales) {
+        if (currentObjLanguages.value.locales[lang] === translateValue.value) {
+          arrData.push({
+            status: 0,
+            new_text: "",
+            code: `${lang}`,
+            lang: locale,
+            value: currentObjLanguages.value.locales[lang]
+          });
+        }
+      }
+      dataLanguages.value = arrData
+    }
+
   }
 
   const saveTranslation = async () => {
@@ -166,6 +249,14 @@ export const useTranslateStore = defineStore('Translation', () => {
       return error.response.data
     }
   }
+
+  const createFindKeyTranslate = async () => {
+    try {
+      await transCreate(findKeyCreateTranslation.value)
+    } catch (error) {
+      return error.response.data
+    }
+  }
   const editTranslate = async () => {
     try {
       await transUpdate(objEditTranslation.value)
@@ -189,10 +280,23 @@ export const useTranslateStore = defineStore('Translation', () => {
     isOpenCreateTranslate,
     isOpenEditTranslate,
     objCreateTranslation,
+    findKeyCreateTranslation,
     translateData,
     filtersTranslate,
     filledTranslates,
     objEditTranslation,
+    isOpenSearchTranslate,
+    translateValue,
+    filledDataTranslation,
+    currentObjLanguages,
+    dataLanguages,
+    updateLanguageCode,
+    loadLanguagesFromLS,
+    handleStatusForEdit,
+    setTranslateValue,
+    handleSearchModal,
+    applyParamToTranslation,
+    createFindKeyTranslate,
     resetFilter,
     fetchTranslates,
     createTranslate,

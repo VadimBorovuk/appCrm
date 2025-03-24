@@ -1,6 +1,3 @@
-import {useLangStore} from "../../stores/langStore.js";
-
-
 export default defineNuxtPlugin((nuxtApp) => {
       const i18n = nuxtApp.$i18n;
       const langStore = useLangStore();

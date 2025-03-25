@@ -11,6 +11,3 @@ useHead({
   title: useTranslatedHead(titleContent.value)
 });
 </script>
-
-
-

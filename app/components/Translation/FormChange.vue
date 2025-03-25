@@ -41,7 +41,7 @@
 
     <div class="flex items-center justify-center">
       <UButton size="lg"
-               class="bg-waterloo-700 hover:bg-waterloo-600 transition duration-300 ease-in-out cursor-pointer"
+               class="bg-waterloo-700 font-bold hover:bg-waterloo-600 dark:bg-waterloo-50 hover:dark:bg-waterloo-200 transition duration-300 ease-in-out cursor-pointer"
                type="submit">
         {{ $t('t.btn.save') }}
       </UButton>

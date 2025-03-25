@@ -2,7 +2,6 @@
 <!--   @update:open="emit('update-langs')"-->
   <UDropdownMenu
       class="cursor-pointer"
-
       :items="items"
       :ui="{content: 'w-60'}"
   >

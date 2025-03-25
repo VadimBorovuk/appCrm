@@ -6,14 +6,14 @@
       <div class="flex-1 mr-2">
         <h3 class="font-bold mb-2">{{ $t('t.list.routes.api') }}</h3>
         <div v-for="item in routeStore.generatedRouters" :key="item.path"
-             class="px-6 py-3 bg-white rounded-lg mb-1">
+             class="px-6 py-3 bg-white dark:bg-waterloo-800 dark:text-white rounded-lg mb-1">
           <b>{{ item.name }}</b> - {{ item.path }}
         </div>
       </div>
       <div class="flex-1">
         <h3 class="font-bold mb-2">{{ $t('t.list.routes.system') }}</h3>
         <div v-for="item in routeStore.currentRoutes" :key="item.path"
-             class="px-6 py-3 bg-white rounded-lg mb-1">
+             class="px-6 py-3 bg-white dark:bg-waterloo-800 dark:text-white rounded-lg mb-1">
           <b>{{ item.name }}</b> - {{ item.path }}
         </div>
       </div>

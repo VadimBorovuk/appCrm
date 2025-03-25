@@ -1,6 +1,21 @@
 @import "tailwindcss" theme(static);
 @import "@nuxt/ui";
 
+
+:root {
+  --ui-border: #bbbbbb; /* світла тема */
+  body{
+    background: #F1F1F9;
+  }
+}
+
+.dark {
+  --ui-border: #7f7f7f; /* темна тема */
+  body{
+    background: var(--color-waterloo-900);
+  }
+}
+
 @theme {
   --font-sans: 'Public Sans', sans-serif;
 
@@ -34,13 +49,12 @@
 body {
   font-family: 'Inter', sans-serif;
   font-size: .9rem;
-  background: #F1F1F9;
 }
 
-thead > tr > th {
-  color: #ffffff !important;
-  font-size: 16px !important;
-}
+/*thead > tr > th {*/
+/*  color: #ffffff !important;*/
+/*  font-size: 16px !important;*/
+/*}*/
 
 
 .preloader {

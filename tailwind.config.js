@@ -9,6 +9,7 @@ export default {
     './error.vue',
     './node_modules/@nuxt/PersonalUI/**/*.{js,vue,ts}', // Додайте шлях до Nuxt PersonalUI
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {

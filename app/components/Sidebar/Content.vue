@@ -1,5 +1,5 @@
 <template>
-  <aside class="w-[260px] min-h-screen bg-white px-4">
+  <aside class="w-[260px] min-h-screen bg-white dark:bg-waterloo-800 dark:text-white px-4">
     <client-only>
       <Navigation/>
       <NavigationLinks
@@ -15,7 +15,6 @@ import {useRoute} from "vue-router";
 const {$permission} = useNuxtApp();
 const {userData} = useUserStore();
 const {t} = useI18n(); // Call once at the top
-const langStore = useLangStore()
 
 const route = useRoute();
 const menuLinks = computed(() => [
@@ -25,23 +24,27 @@ const menuLinks = computed(() => [
       icon: 'material-symbols-light:house-rounded',
       type: 'link',
       to: '/main',
-      visible: true
+      visible: true,
+      class: 'dark:text-white'
     },
     {
       label: t('t.nav.settings'),
       icon: 'material-symbols-light:settings-rounded',
       defaultOpen: route.path.startsWith('/settings'),
       visible: $permission.canAction(userData.access, 'route.link.settings'),
+      class: 'dark:text-white',
       children: [
         {
           label: t('t.nav.administration'),
           to: '/settings/administration',
           visible: $permission.canAction(userData.access, 'route.link.administration'),
+          class: 'dark:text-white',
         },
         {
           label: t('t.nav.translations'),
           to: '/settings/translations',
           visible: $permission.canAction(userData.access, 'route.link.translations'),
+          class: 'dark:text-white'
         }
       ]
     }

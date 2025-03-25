@@ -5,7 +5,7 @@
     </Notivue>
     <LoadingView/>
     <main class="h-full">
-      <div class="page-holder h-full flex">
+      <div class="h-full flex">
         <SidebarContent/>
         <div class="flex-1 p-5">
           <NuxtPage/>

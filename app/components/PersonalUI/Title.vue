@@ -11,8 +11,8 @@
         />
       </div>
       <div class="flex items-center">
-        <Icon v-if="!btnBackVisible" class="text-black mr-2" :size="30" :name="icon"/>
-        <span class="text-[#131728] text-2xl font-bold">{{ $t(title) }}</span>
+        <Icon v-if="!btnBackVisible" class="text-gray-900 dark:text-white mr-2" :size="30" :name="icon"/>
+        <span class=" text-2xl font-bold">{{ $t(title) }}</span>
       </div>
     </div>
   </client-only>

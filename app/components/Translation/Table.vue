@@ -2,15 +2,16 @@
   <UTable
       v-model:column-pinning="columnPinning"
       :ui="{
-        thead: 'bg-waterloo-500 h-[50px] text-white',
+        thead: 'bg-waterloo-500 dark:bg-[#0f172b] h-[50px] text-white',
+        td: 'text-black dark:text-white'
     }"
       :columns="columns"
       :data="data"
       :empty-state="{ label: 'No data' }"
-      class="mt-4 flex-1"
+      class="mt-4 flex-1 dark:bg-waterloo-900"
   >
     <template #id-cell="{ row }">
-      <div class="w-[80px]">
+      <div class="w-[80px] text">
         {{ row.original.id }}
       </div>
     </template>

@@ -1,5 +1,8 @@
 <template>
-  <div class="flex items-center justify-between h-[70px] border-b-[1.1px] border-[#e2e8f0] mb-3">
+  <div
+      class="flex items-center justify-between h-[70px]
+      border-b-[1.1px] border-[#d0d0d0] dark:border-[#7f7f7f] mb-3"
+  >
     <div class="w-[320px] flex items-center h-full">
       <client-only>
         <NavigationDropDown
@@ -7,9 +10,11 @@
             :items="listDropCrm"
         />
         <div class="flex items-center justify-center h-full px-3 flex-1">
-          <p class="text-[12px] text-[#929292]"> {{ $t('t.nav.agent.name') }} ⏤ {{ userData.user_info.first_name }}
+          <p class="text-[12px] text-[#929292] dark:text-white"> {{ $t('t.nav.agent.name') }} ⏤
+            {{ userData.user_info.first_name }}
             {{ userData.user_info.second_name }} </p>
         </div>
+        <NavigationChangeTheme/>
       </client-only>
     </div>
   </div>
@@ -56,17 +61,26 @@ const getNameOfLang = (value, status) => {
   }
 }
 
+const classLinkDropDown = (locale, langCode) => {
+  if (locale === langCode) {
+    return 'bg-waterloo-500 text-white flex justify-center items-center py-2 my-2 cursor-pointer rounded-md font-bold'
+  } else {
+    return 'cursor-pointer py-1 flex justify-center items-center py-2 my-2'
+  }
+}
+
 const listDropCrm = computed(() => [
   [{
     label: t('t.label.drop.languages'),
     slot: 'languages',
+    class: '',
     disabled: true
   }],
   ...[locales.map((lang) => ({
     label: getNameOfLang(lang.code, true),
     icon: getIconOfLang(lang.code),
     disabled: locale.value === lang.code,
-    class: locale.value === lang.code ? 'bg-waterloo-500 text-white flex justify-center items-center py-1 my-2 cursor-pointer' : 'cursor-pointer bg-white text-black py-1 flex justify-center items-center hover:bg-waterloo-50 my-2',
+    class: classLinkDropDown(locale.value, lang.code),
     onSelect() {
       changeLang(lang.code);
     }

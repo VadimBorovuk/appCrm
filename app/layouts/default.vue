@@ -7,7 +7,7 @@
     <main class="h-full">
       <div class="h-full flex">
         <SidebarContent/>
-        <div class="flex-1 p-5">
+        <div class="flex-1 m-5">
           <NuxtPage/>
         </div>
       </div>

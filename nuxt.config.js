@@ -1,4 +1,5 @@
 import {cssConfig, fontsConfig, i118Config, modulesConfig, pluginsConfig, runtimeEnvConfig} from "./config/main.js";
+import {createWebHashHistory} from "vue-router";
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-27',
